@@ -8,7 +8,8 @@ export default class App extends React.Component {
   state = {
     isLoading: false,
     temperature: 0,
-    weatherCondition: null,
+    weatherCondition: 'Default',
+    weatherDescription: null,
     error: null
   };
 
@@ -32,13 +33,15 @@ export default class App extends React.Component {
       console.log({lat});
       console.log({lon});
       console.log({json});
-      console.log('json.main.temp: ',json.main.temp);
-      console.log('json.weather[0]: ', json.weather[0]);
-      console.log('json.weather[0].main: ', json.weather[0].main);
+      console.log('app.js json.main.temp: ',json.main.temp);
+      console.log('app.js json.weather[0]: ', json.weather[0]);
+      console.log('app.js json.weather[0].main: ', json.weather[0].main);
       this.setState({
         temperature: json.main.temp,
-        weatherCondition: (json.weather[0].description) ? json.weather[0].description : json.weather[0].main,
+        weatherCondition: json.weather[0].main,
+        weatherDescription: json.weather[0].description,
         isLoading:false
+
       })
     })
     .catch(console(error));

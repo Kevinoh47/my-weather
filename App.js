@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Text, View , Animated } from 'react-native';
+import React , {Component} from 'react';
+import { Modal, TouchableHighlight, Alert, StyleSheet, Text, View , Animated } from 'react-native';
 
 import { API_KEY } from './utils/weatherAPIKey.js';
 import Weather from './components/Weather.js';
@@ -9,7 +9,9 @@ export default class App extends React.Component {
     isLoading: false,
     temperature: 0,
     weatherCondition: 'Default',
-    weatherDescription: null,
+    weatherDescription: 'null',
+    details: {},
+    modalVisible: false,
     error: null
   };
 
@@ -30,25 +32,33 @@ export default class App extends React.Component {
     )
     .then(res => res.json())
     .then(json => {
-      console.log({lat});
-      console.log({lon});
-      console.log({json});
-      console.log('app.js json.main.temp: ',json.main.temp);
-      console.log('app.js json.weather[0]: ', json.weather[0]);
-      console.log('app.js json.weather[0].main: ', json.weather[0].main);
       this.setState({
+        isLoading:false,
         temperature: json.main.temp,
         weatherCondition: json.weather[0].main,
         weatherDescription: json.weather[0].description,
-        isLoading:false
-
+        details: {
+          location: json.name, 
+          lat: lat,
+          lon: lon,
+          humidity: json.main.humidity, 
+          pressure: json.main.pressure, 
+          maxtemp: json.main.temp_max, 
+          mintemp: json.main.temp_min, 
+          winddir: json.wind.deg, 
+          windspeed: json.wind.speed
+        }
       })
+      console.log("this.state", this.state);
     })
     .catch(console(error));
   }
 
-  render() {
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
 
+  render() {
     const { isLoading } = this.state;
 
     console.log("this.state.weatherCondition", this.state.weatherCondition);
@@ -56,13 +66,48 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         { isLoading ? 
-        <Text>Fetching Weather...</Text> 
-        : 
-        <Weather 
-          weather={this.state.weatherCondition} 
-          temperature={this.state.temperature}
-          weatherDescr={this.state.weatherDescription}
-        />}
+          <Text>Fetching Weather...</Text> 
+            : 
+              <Weather 
+                weather={this.state.weatherCondition} 
+                temperature={this.state.temperature}
+                weatherDescription={this.state.weatherDescription}
+                details={this.state.details}
+              />
+        }
+
+        <View style={{marginTop: 22}}>
+          <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+            <View style={{marginTop: 22}}>
+              <View>
+                <Text>Hello World!</Text>
+
+                <TouchableHighlight
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                  }}>
+                  <Text>Hide Modal</Text>
+                </TouchableHighlight>
+              </View>
+            </View>
+          </Modal>
+
+          <TouchableHighlight
+            onPress={() => {
+              this.setModalVisible(true);
+            }}>
+            <Text>Show Modal</Text>
+          </TouchableHighlight>
+        </View>
+
+
+
       </View>
     );
   }

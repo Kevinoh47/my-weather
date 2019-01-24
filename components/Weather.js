@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Modal, TouchableHighlight, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { weatherConditions } from '../utils/WeatherConditions.js';
@@ -7,21 +7,27 @@ import If from '../utils/If.js';
 
 const _convertToF = (temp) => {return (temp * 9 /5 + 32).toFixed(0)};
 
-const Weather = ({ weather, temperature, weatherDesc }) => {
-  console.log('Weather.js...')
-  console.log({weather});
-  console.log({temperature});
-  console.log({weatherConditions});
-  console.log('weatherConditions[weather]...', weatherConditions[weather]);
+const Weather = ({ weather, temperature, weatherDescription, details }) => {
+
+  console.log('Weather.js input props following ...')
+  // console.log({weather});
+  // console.log({temperature});
+  // //console.log({weatherConditions});
+  // console.log('weatherConditions[weather]...', weatherConditions[weather]);
+  console.log ({weatherDescription});
+  console.log ({details});
+
   const myF = _convertToF(temperature);
   const myC = temperature.toFixed(1);
 
   return (
+
     <View 
       style={[
           styles.weatherContainer, 
           { backgroundColor: weatherConditions[weather].color }
         ]}>
+
       <View style={styles.headerContainer}>
         <MaterialCommunityIcons 
           size={72} 
@@ -36,9 +42,9 @@ const Weather = ({ weather, temperature, weatherDesc }) => {
         <Text style={styles.subtitle}>
           {weatherConditions[weather].subtitle}
         </Text>
-        <If condition={ weather !== weatherDesc } >
+        <If condition={ weather !== weatherDescription } >
           <Text style={styles.subtitle}>
-            {weatherDesc}
+            {weatherDescription}
           </Text>
         </If>
       </View>

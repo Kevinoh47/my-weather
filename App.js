@@ -55,8 +55,14 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        { isLoading ? <Text>Fetching Weather...</Text> : 
-        <Weather weather={this.state.weatherCondition} temperature={this.state.temperature}/>}
+        { isLoading ? 
+        <Text>Fetching Weather...</Text> 
+        : 
+        <Weather 
+          weather={this.state.weatherCondition} 
+          temperature={this.state.temperature}
+          weatherDescr={this.state.weatherDescription}
+        />}
       </View>
     );
   }

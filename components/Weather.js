@@ -3,10 +3,11 @@ import { View, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import { weatherConditions } from '../utils/WeatherConditions.js';
+import If from '../utils/If.js';
 
 const _convertToF = (temp) => {return (temp * 9 /5 + 32).toFixed(0)};
 
-const Weather = ({ weather, temperature }) => {
+const Weather = ({ weather, temperature, weatherDesc }) => {
   console.log('Weather.js...')
   console.log({weather});
   console.log({temperature});
@@ -35,6 +36,11 @@ const Weather = ({ weather, temperature }) => {
         <Text style={styles.subtitle}>
           {weatherConditions[weather].subtitle}
         </Text>
+        <If condition={ weather !== weatherDesc } >
+          <Text style={styles.subtitle}>
+            {weatherDesc}
+          </Text>
+        </If>
       </View>
     </View>
   );

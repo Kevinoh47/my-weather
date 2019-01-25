@@ -76,6 +76,7 @@ export default class App extends React.Component {
 
         <View style={{marginTop: 22}}>
           <Modal
+            style={styles.modalContainer}
             animationType="slide"
             transparent={false}
             visible={this.state.modalVisible}
@@ -84,13 +85,12 @@ export default class App extends React.Component {
             }}>
             <View style={{marginTop: 22}}>
               <View>
-                <Text>Details</Text>
                 <Details data={this.state.data} />
                 <TouchableHighlight
                   onPress={() => {
                     this.setModalVisible(!this.state.modalVisible);
                   }}>
-                  <Text>Hide Modal</Text>
+                  <Text>Hide Details</Text>
                 </TouchableHighlight>
               </View>
             </View>
@@ -100,7 +100,7 @@ export default class App extends React.Component {
             onPress={() => {
               this.setModalVisible(true);
             }}>
-            <Text>Show Modal</Text>
+            <Text>Show Details</Text>
           </TouchableHighlight>
         </View>
 
@@ -118,4 +118,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  modalContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#e6ed17',
+    color: '#070707',
+    fontSize: 36,
+  },
+  headerContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  bodyContainer: {
+    flex: 2,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    paddingLeft: 25,
+    marginBottom: 40
+  },
+  title: {
+    fontSize: 48,
+    color: '#fff'
+  },
+  subtitle: {
+    fontSize: 24,
+    color: '#fff'
+  }
 });

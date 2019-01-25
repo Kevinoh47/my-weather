@@ -33,7 +33,7 @@ const Weather = ({ weather, temperature, weatherDescription, details }) => {
           name={weatherConditions[weather].icon}
           color={'#fff'} 
         />
-        <Text style={styles.tempText}>{myC}˚C</Text>
+        <Text style={styles.tempCelc}>{myC}˚C</Text>
         <Text style={styles.subtitle}>{myF}˚F</Text>
       </View>
       <View style={styles.bodyContainer}>
@@ -41,7 +41,7 @@ const Weather = ({ weather, temperature, weatherDescription, details }) => {
         <Text style={styles.subtitle}>
           {weatherConditions[weather].subtitle}
         </Text>
-        <If condition={ (weather).toLowerCase() !== weatherDescription.toLowerCase() } >
+        <If condition={ weatherDescription !== null && (weather).toLowerCase() !== weatherDescription.toLowerCase() } >
           <Text style={styles.subtitle}>
             {weatherDescription}
           </Text>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  tempText: {
+  tempCelc: {
     fontSize: 48,
     color: '#fff'
   },

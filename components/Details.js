@@ -1,12 +1,9 @@
 import React , { Component } from 'react';
-import { Modal, View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import PropTypes from 'prop-types';
 
-const Details = ({ data }) => {
-
-  console.log('Details.js input props following ...')
-  console.log ({data});
+class Details extends Component {
 
   renderSeparator = () => {
     return (
@@ -21,42 +18,44 @@ const Details = ({ data }) => {
     );
   };
 
-  return (
-
-    <View style={styles.modalContainer}>
-      <Text style={styles.title}>Details</Text>
-
-      <Text style={styles.subtitle}>Weather Details</Text>
-
-      <Text style={styles.item}>{data[0].name} {data[0].value}</Text>
-      <Text style={styles.item}>{data[1].name} {data[1].value}</Text>
-      <Text style={styles.item}>{data[2].name} {data[2].value}</Text>
-      <Text style={styles.item}>{data[3].name} {data[3].value}</Text>
-      <Text style={styles.item}>{data[4].name} {data[4].value}</Text>
-      <Text style={styles.item}>{data[5].name} {data[5].value}</Text>
-      <Text style={styles.item}>{data[6].name} {data[6].value}</Text>
-      <Text style={styles.item}>{data[7].name} {data[7].value}</Text>
-      <Text style={styles.item}>{data[8].name} {data[8].value}</Text>
-
-      <List containerStyle={{ borderTopWidth: 10, borderBottomWidth: 10 }>
-        <FlatList 
-          data={ data }
-          renderItem={({ item }) => {
-            <ListItem 
-              title = {`${item.name}`} 
-              subtitle = {`${item.value}`}
-              containerStyle={{ borderBottomWidth: 0 }}
-            />
-          }}
-          keyExtractor={item => item.name}
-          ItemSeparatorComponent={this.renderSeparator}
-        />
-      </List>
-
-    </View>
-    
-  );
-};
+  render() {
+    console.log('Details.js input props following ...')
+    console.log (this.props.data);
+    return (
+  
+      <View >
+        <Text style={styles.title}>Details</Text>
+  
+        <Text style={styles.subtitle}>Weather Details</Text>
+  
+        <Text style={styles.item}>{this.props.data[0].value}</Text>
+        <Text style={styles.item}>{this.props.data[1].name} {this.props.data[1].value}</Text>
+        <Text style={styles.item}>{this.props.data[2].name} {this.props.data[2].value}</Text>
+        <Text style={styles.item}>{this.props.data[3].name} {this.props.data[3].value}</Text>
+        <Text style={styles.item}>{this.props.data[4].name} {this.props.data[4].value}</Text>
+        <Text style={styles.item}>{this.props.data[5].name} {this.props.data[5].value}</Text>
+        <Text style={styles.item}>{this.props.data[6].name} {this.props.data[6].value}</Text>
+        <Text style={styles.item}>{this.props.data[7].name} {this.props.data[7].value}</Text>
+        <Text style={styles.item}>{this.props.data[8].name} {this.props.data[8].value}</Text>
+  
+        {/* <List containerStyle={{ borderTopWidth: 2, borderBottomWidth: 2 }} >
+          <FlatList 
+            data={ this.props.data }
+            renderItem={({ item }) => {
+              <ListItem 
+                title = {`${item.name} oh my test title value` } 
+                subtitle = {`${item.value} and test subtitle value`}
+                containerStyle={{ borderBottomWidth: 0 }}
+              />
+            }}
+            keyExtractor={item => item.name}
+            ItemSeparatorComponent={this.renderSeparator}
+          />
+        </List> */}
+      </View>
+    );
+  }
+}
 
 // Details.propTypes = {
 //   temperature: PropTypes.number.isRequired,
@@ -64,6 +63,10 @@ const Details = ({ data }) => {
 // };
 
 const styles = StyleSheet.create({
+  item: {
+    color: '#070707',
+    fontSize: 36,
+  },
   modalContainer: {
     flex: 1,
     alignItems: 'center',

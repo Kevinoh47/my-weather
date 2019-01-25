@@ -9,7 +9,7 @@ export const weatherConditions = {
     color: '#f7b733',
     title: 'So Sunny',
     subtitle: 'Good day, sunshine...',
-icon: 'weather-sunny'
+    icon: 'weather-sunny'
   },
   Thunderstorm: {
     color: '#616161',
@@ -39,7 +39,13 @@ icon: 'weather-sunny'
     color: '#66A6FF',
     title: 'Haze',
     subtitle: 'Ughh... forest fires?',
-    icon: 'weather-hail'
+    icon: 'weather-fog'
+  },
+  Smoke: {
+    color: '#66A6FF',
+    title: 'Smoke',
+    subtitle: 'Ughh... forest fires?',
+    icon: 'weather-fog'
   },
   Mist: {
     color: '#3CD3AD',
@@ -47,8 +53,14 @@ icon: 'weather-sunny'
     subtitle: "...where the spirits fly...",
     icon: 'weather-fog'
   },
+  Fog: {
+    color: '#3CD3AD',
+    title: 'Fog',
+    subtitle: "Listen for foghorns!",
+    icon: 'weather-fog'
+  },
   Default: {
-    color: '#fff',
+    color: '#356de8',
     title: 'Ooops',
     subtitle: 'Hmmm... not sure...',
     icon: 'weather-cloudy'

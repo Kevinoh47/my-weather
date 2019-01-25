@@ -3,6 +3,7 @@ import { Modal, TouchableHighlight, Alert, StyleSheet, Text, View , Animated } f
 
 import { API_KEY } from './utils/weatherAPIKey.js';
 import Weather from './components/Weather.js';
+import Details from './components/Details.js';
 
 export default class App extends React.Component {
   state = {
@@ -10,7 +11,7 @@ export default class App extends React.Component {
     temperature: 0,
     weatherCondition: 'Default',
     weatherDescription: 'null',
-    details: {},
+    data: [],
     modalVisible: false,
     error: null
   };
@@ -37,17 +38,17 @@ export default class App extends React.Component {
         temperature: json.main.temp,
         weatherCondition: json.weather[0].main,
         weatherDescription: json.weather[0].description,
-        details: {
-          location: json.name, 
-          lat: lat,
-          lon: lon,
-          humidity: json.main.humidity, 
-          pressure: json.main.pressure, 
-          maxtemp: json.main.temp_max, 
-          mintemp: json.main.temp_min, 
-          winddir: json.wind.deg, 
-          windspeed: json.wind.speed
-        }
+        data: [
+          {name: "location", value: json.name}, 
+          {name: "lat", value:  lat},
+          {name: "lon", value:  lon},
+          {name: "humidity", value:  json.main.humidity}, 
+          {name: "pressure", value:  json.main.pressure}, 
+          {name: "maxtemp", value:  json.main.temp_max}, 
+          {name: "mintemp", value:  json.main.temp_min}, 
+          {name: "winddir", value:  json.wind.deg}, 
+          {name: "windspeed", value:  json.wind.speed}
+        ]
       })
       console.log("this.state", this.state);
     })
@@ -61,8 +62,6 @@ export default class App extends React.Component {
   render() {
     const { isLoading } = this.state;
 
-    console.log("this.state.weatherCondition", this.state.weatherCondition);
-
     return (
       <View style={styles.container}>
         { isLoading ? 
@@ -72,22 +71,21 @@ export default class App extends React.Component {
                 weather={this.state.weatherCondition} 
                 temperature={this.state.temperature}
                 weatherDescription={this.state.weatherDescription}
-                details={this.state.details}
               />
         }
 
         <View style={{marginTop: 22}}>
           <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+            }}>
             <View style={{marginTop: 22}}>
               <View>
-                <Text>Hello World!</Text>
-
+                <Text>Details</Text>
+                <Details data={this.state.data} />
                 <TouchableHighlight
                   onPress={() => {
                     this.setModalVisible(!this.state.modalVisible);

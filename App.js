@@ -32,21 +32,25 @@ class App extends React.Component {
   }
 
   componentWillUnmount = () => {
-    //this.state.handRaised = false;
     this.setState({handRaised: false})
   }
 
+  /** 
+   * x coordinate is pushing horizontally to the right about 45 degrees; y is force straight up .9 would be almost straight up  
+   **/
   handRaised = () => {
-    const { y } = this.state.accelerometerData;
-    if (y > 0.7) {
-      //this.state.handRaised = true;
-      this.setState({handRaised: true})
+    const { x, y } = this.state.accelerometerData;
+    console.log({x});
+    console.log({y})
+    if (x < -0.3 && y > 0.6) {
+      this.setState({handRaised: !this.state.handRaised})
       this.setModalVisible(!this.state.modalVisible);
     }
   }
 
   _subscribe = () => {
     // When invoked, the listener is provided a single argumument that is an object containing keys x, y, z.
+    Accelerometer.setUpdateInterval(2000);
     this._subscription = Accelerometer.addListener((accelerometerData) => {
       this.setState({ accelerometerData });
       this.handRaised();
@@ -65,18 +69,18 @@ class App extends React.Component {
         weatherCondition: json.weather[0].main,
         weatherDescription: json.weather[0].description,
         data: [
-          {name: "location", value: json.name}, 
-          {name: "lat", value:  lat},
-          {name: "lon", value:  lon},
-          {name: "humidity", value:  json.main.humidity}, 
-          {name: "pressure", value:  json.main.pressure}, 
-          {name: "maxtemp", value:  json.main.temp_max}, 
-          {name: "mintemp", value:  json.main.temp_min}, 
-          {name: "winddir", value:  json.wind.deg}, 
-          {name: "windspeed", value:  json.wind.speed}
+          {name: "location", value: (json.name) ? json.name : ''}, 
+          {name: "lat", value:  (lat) ? lat : 0},
+          {name: "lon", value:  (lon) ? lon : 0},
+          {name: "humidity", value:  (json.main.humidity) ? json.main.humidity : 0}, 
+          {name: "pressure", value:  (json.main.pressure) ? json.main.pressure : 0}, 
+          {name: "maxtemp", value:  (json.main.temp_max) ? json.main.temp_max : 0 }, 
+          {name: "mintemp", value:  (json.main.temp_min) ? json.main.temp_min : 0}, 
+          {name: "winddir", value:  (json.wind.deg) ? json.wind.deg : 0 }, 
+          {name: "windspeed", value:  (json.wind.speed) ? json.wind.speed : 0}
         ]
       })
-      console.log("this.state", this.state);
+      // console.log("this.state", this.state);
     })
     .catch(console(error));
   }
@@ -86,7 +90,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading } = this.state.isLoading;
 
     return (
       <View style={styles.container}>

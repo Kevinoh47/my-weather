@@ -19,8 +19,8 @@ class Details extends Component {
   };
 
   render() {
-    console.log('Details.js input props following ...')
-    console.log (this.props.data);
+    // console.log('Details.js input props following ...')
+    // console.log (this.props.data);
     return (
   
       <View >

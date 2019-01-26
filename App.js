@@ -1,11 +1,11 @@
-import React , {Component} from 'react';
+import React from 'react';
 import { Modal, TouchableHighlight, Alert, StyleSheet, Text, View , Animated } from 'react-native';
 
 import { API_KEY } from './utils/weatherAPIKey.js';
 import Weather from './components/Weather.js';
 import Details from './components/Details.js';
 
-export default class App extends React.Component {
+class App extends React.Component {
   state = {
     isLoading: false,
     temperature: 0,
@@ -64,16 +64,13 @@ export default class App extends React.Component {
 
     return (
       <View style={styles.container}>
-        { isLoading ? 
-          <Text>Fetching Weather...</Text> 
-            : 
-              <Weather 
-                weather={this.state.weatherCondition} 
-                temperature={this.state.temperature}
-                weatherDescription={this.state.weatherDescription}
+        { isLoading ?  <Text>Fetching Weather...</Text>  : 
+          <Weather 
+            weather={this.state.weatherCondition} 
+            temperature={this.state.temperature}
+            weatherDescription={this.state.weatherDescription}
               />
         }
-
         <View style={{marginTop: 22}}>
           <Modal
             style={styles.modalContainer}
@@ -84,18 +81,16 @@ export default class App extends React.Component {
               Alert.alert('Modal has been closed.');
             }}>
             <View style={{marginTop: 22}}>
-              <View>
-                <Details data={this.state.data} />
-                <TouchableHighlight
-                  onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
-                  }}>
-                  <Text>Hide Details</Text>
-                </TouchableHighlight>
+              <View>{isLoading ? <Text>Fetching Details...</Text>  : <Details data={this.state.data} />}
+              <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text>Hide Details</Text>
+              </TouchableHighlight>
               </View>
             </View>
           </Modal>
-
           <TouchableHighlight
             onPress={() => {
               this.setModalVisible(true);
@@ -103,9 +98,6 @@ export default class App extends React.Component {
             <Text>Show Details</Text>
           </TouchableHighlight>
         </View>
-
-
-
       </View>
     );
   }
@@ -147,3 +139,5 @@ const styles = StyleSheet.create({
     color: '#fff'
   }
 });
+
+export default App;

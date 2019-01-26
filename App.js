@@ -4,6 +4,7 @@ import { Modal, TouchableHighlight, Alert, StyleSheet, Text, View , Animated } f
 import { API_KEY } from './utils/weatherAPIKey.js';
 import Weather from './components/Weather.js';
 import Details from './components/Details.js';
+import { Accelerometer } from 'expo';
 
 class App extends React.Component {
   state = {
@@ -13,10 +14,13 @@ class App extends React.Component {
     weatherDescription: 'null',
     data: [],
     modalVisible: false,
+    accelerometerData: {},
+    handRaised: false,
     error: null
   };
 
-  componentDidMount() {
+  componentDidMount = () => {
+    this._subscribe();
     navigator.geolocation.getCurrentPosition (
       position => {
         this.fetchWeather(position.coords.latitude, position.coords.longitude);
@@ -25,6 +29,28 @@ class App extends React.Component {
         this.setState({ error: 'Error retrieving weather.'});
       }
     );
+  }
+
+  componentWillUnmount = () => {
+    //this.state.handRaised = false;
+    this.setState({handRaised: false})
+  }
+
+  handRaised = () => {
+    const { y } = this.state.accelerometerData;
+    if (y > 0.7) {
+      //this.state.handRaised = true;
+      this.setState({handRaised: true})
+      this.setModalVisible(!this.state.modalVisible);
+    }
+  }
+
+  _subscribe = () => {
+    // When invoked, the listener is provided a single argumument that is an object containing keys x, y, z.
+    this._subscription = Accelerometer.addListener((accelerometerData) => {
+      this.setState({ accelerometerData });
+      this.handRaised();
+    });
   }
 
   fetchWeather(lat=47.6261111111, lon=-122.5208333333) {
@@ -55,7 +81,7 @@ class App extends React.Component {
     .catch(console(error));
   }
 
-  setModalVisible(visible) {
+  setModalVisible = (visible) => {
     this.setState({modalVisible: visible});
   }
 
@@ -69,7 +95,7 @@ class App extends React.Component {
             weather={this.state.weatherCondition} 
             temperature={this.state.temperature}
             weatherDescription={this.state.weatherDescription}
-              />
+          />
         }
         <View style={{marginTop: 22}}>
           <Modal
@@ -82,12 +108,12 @@ class App extends React.Component {
             }}>
             <View style={{marginTop: 22}}>
               <View>{isLoading ? <Text>Fetching Details...</Text>  : <Details data={this.state.data} />}
-              <TouchableHighlight
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text>Hide Details</Text>
-              </TouchableHighlight>
+                <TouchableHighlight
+                  onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                  }}>
+                  <Text>Hide Details</Text>
+                </TouchableHighlight>
               </View>
             </View>
           </Modal>

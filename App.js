@@ -15,7 +15,7 @@ class App extends React.Component {
     data: [],
     modalVisible: false,
     accelerometerData: {},
-    handRaised: false,
+    gestured: false,
     error: null
   };
 
@@ -32,18 +32,18 @@ class App extends React.Component {
   }
 
   componentWillUnmount = () => {
-    this.setState({handRaised: false})
+    this.setState({gestured: false})
   }
 
   /** 
    * x coordinate is pushing horizontally to the right about 45 degrees; y is force straight up .9 would be almost straight up  
    **/
-  handRaised = () => {
+  gestured = () => {
     const { x, y } = this.state.accelerometerData;
     console.log({x});
     console.log({y})
     if (x < -0.3 && y > 0.6) {
-      this.setState({handRaised: !this.state.handRaised})
+      this.setState({gestured: !this.state.gestured})
       this.setModalVisible(!this.state.modalVisible);
     }
   }
@@ -53,7 +53,7 @@ class App extends React.Component {
     Accelerometer.setUpdateInterval(2000);
     this._subscription = Accelerometer.addListener((accelerometerData) => {
       this.setState({ accelerometerData });
-      this.handRaised();
+      this.gestured();
     });
   }
 

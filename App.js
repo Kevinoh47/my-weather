@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, TouchableHighlight, Alert, StyleSheet, Text, View , Animated } from 'react-native';
+import { Modal, TouchableHighlight, Alert, StyleSheet, Text, View  } from 'react-native';
 
 import { API_KEY } from './utils/weatherAPIKey.js';
 import Weather from './components/Weather.js';
@@ -80,7 +80,6 @@ class App extends React.Component {
           {name: "windspeed", value:  (json.wind.speed) ? json.wind.speed : 0}
         ]
       })
-      // console.log("this.state", this.state);
     })
     .catch(console(error));
   }

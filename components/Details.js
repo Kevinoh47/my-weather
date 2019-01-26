@@ -19,10 +19,7 @@ class Details extends Component {
   };
 
   render() {
-    // console.log('Details.js input props following ...')
-    // console.log (this.props.data);
     return (
-  
       <View >
         <Text style={styles.title}>Details</Text>
   

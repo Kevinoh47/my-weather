@@ -1,20 +1,51 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
+import { weatherConditions } from '../utils/WeatherConditions.js';
+import If from '../utils/If.js';
 
-const Weather = ({ weather, temperature }) => {
+const _convertToF = (temp) => {return (temp * 9 /5 + 32).toFixed(0)};
+
+const Weather = ({ weather, temperature, weatherDescription, details }) => {
+
+  const myF = _convertToF(temperature);
+  const myC = temperature.toFixed(1);
+
   return (
-    <View style={styles.weatherContainer}>
+
+    <View 
+      style={[
+          styles.weatherContainer, 
+          { backgroundColor: weatherConditions[weather].color }
+        ]}>
       <View style={styles.headerContainer}>
-        <MaterialCommunityIcons size={48} name="weather-sunny" color={'#fff'} />
-        <Text style={styles.tempText}>{temperature}˚C</Text>
+        <MaterialCommunityIcons 
+          size={72} 
+          name={weatherConditions[weather].icon}
+          color={'#fff'} 
+        />
+        <Text style={styles.tempCelc}>{myC}˚C</Text>
+        <Text style={styles.subtitle}>{myF}˚F</Text>
       </View>
       <View style={styles.bodyContainer}>
         <Text style={styles.title}>{weather}</Text>
-        <Text style={styles.subtitle}>It hurts my eyes! But I love it.</Text>
+        <Text style={styles.subtitle}>
+          {weatherConditions[weather].subtitle}
+        </Text>
+        <If condition={ weatherDescription !== null && (weather).toLowerCase() !== weatherDescription.toLowerCase() } >
+          <Text style={styles.subtitle}>
+            {weatherDescription}
+          </Text>
+        </If>
       </View>
     </View>
   );
+};
+
+Weather.propTypes = {
+  temperature: PropTypes.number.isRequired,
+  weather: PropTypes.string
 };
 
 const styles = StyleSheet.create({
@@ -27,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  tempText: {
+  tempCelc: {
     fontSize: 48,
     color: '#fff'
   },

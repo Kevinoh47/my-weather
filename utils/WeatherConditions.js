@@ -18,7 +18,7 @@ export const weatherConditions = {
     icon: 'weather-lightning'
   },
   Clouds: {
-    color: '#1F1C2C',
+    color: 'skyblue',
     title: 'Clouds',
     subtitle: 'Everywhere',
     icon: 'weather-cloudy'
@@ -61,8 +61,8 @@ export const weatherConditions = {
   },
   Default: {
     color: '#356de8',
-    title: 'Ooops',
-    subtitle: 'Hmmm... not sure...',
+    title: 'Loading',
+    subtitle: 'Loading your data...',
     icon: 'weather-cloudy'
   },
 }

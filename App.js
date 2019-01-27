@@ -40,8 +40,8 @@ class App extends React.Component {
    **/
   gestured = () => {
     const { x, y } = this.state.accelerometerData;
-    console.log({x});
-    console.log({y})
+    // console.log({x});
+    // console.log({y})
     if (x < -0.3 && y > 0.6) {
       this.setState({gestured: !this.state.gestured})
       this.setModalVisible(!this.state.modalVisible);
@@ -50,7 +50,7 @@ class App extends React.Component {
 
   _subscribe = () => {
     // When invoked, the listener is provided a single argumument that is an object containing keys x, y, z.
-    Accelerometer.setUpdateInterval(2000);
+    Accelerometer.setUpdateInterval(1500);
     this._subscription = Accelerometer.addListener((accelerometerData) => {
       this.setState({ accelerometerData });
       this.gestured();

@@ -21,19 +21,16 @@ class Details extends Component {
   render() {
     return (
       <View >
-        <Text style={styles.title}>Details</Text>
-  
         <Text style={styles.subtitle}>Weather Details</Text>
-  
         <Text style={styles.item}>{this.props.data[0].value}</Text>
-        <Text style={styles.item}>{this.props.data[1].name} {this.props.data[1].value}</Text>
-        <Text style={styles.item}>{this.props.data[2].name} {this.props.data[2].value}</Text>
-        <Text style={styles.item}>{this.props.data[3].name} {this.props.data[3].value}</Text>
-        <Text style={styles.item}>{this.props.data[4].name} {this.props.data[4].value}</Text>
-        <Text style={styles.item}>{this.props.data[5].name} {this.props.data[5].value}</Text>
-        <Text style={styles.item}>{this.props.data[6].name} {this.props.data[6].value}</Text>
-        <Text style={styles.item}>{this.props.data[7].name} {this.props.data[7].value}</Text>
-        <Text style={styles.item}>{this.props.data[8].name} {this.props.data[8].value}</Text>
+        <Text style={styles.item}>{this.props.data[1].name} : {this.props.data[1].value}</Text>
+        <Text style={styles.item}>{this.props.data[2].name} : {this.props.data[2].value}</Text>
+        <Text style={styles.item}>{this.props.data[3].name} : {this.props.data[3].value}</Text>
+        <Text style={styles.item}>{this.props.data[4].name} : {this.props.data[4].value}</Text>
+        <Text style={styles.item}>{this.props.data[5].name} : {this.props.data[5].value}</Text>
+        <Text style={styles.item}>{this.props.data[6].name} : {this.props.data[6].value}</Text>
+        <Text style={styles.item}>{this.props.data[7].name} : {this.props.data[7].value}</Text>
+        <Text style={styles.item}>{this.props.data[8].name} : {this.props.data[8].value}</Text>
   
         {/* <List containerStyle={{ borderTopWidth: 2, borderBottomWidth: 2 }} >
           <FlatList 
@@ -62,7 +59,8 @@ class Details extends Component {
 const styles = StyleSheet.create({
   item: {
     color: '#070707',
-    fontSize: 36,
+    fontSize: 24,
+    justifyContent: 'center'
   },
   modalContainer: {
     flex: 1,
@@ -70,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#e6ed17',
     color: '#070707',
-    fontSize: 36,
+    fontSize: 36
   },
   headerContainer: {
     flex: 1,
@@ -79,15 +77,16 @@ const styles = StyleSheet.create({
   },
   tempText: {
     fontSize: 48,
-    color: '#fff'
+    color: '#070707'
   },
   title: {
     fontSize: 48,
-    color: '#fff'
+    color: '#070707'
   },
   subtitle: {
-    fontSize: 24,
-    color: '#fff'
+    fontSize: 36,
+    color: '#070707',
+    justifyContent: 'center'
   }
 });
 
